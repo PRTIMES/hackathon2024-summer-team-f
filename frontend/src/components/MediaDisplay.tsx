@@ -7,8 +7,12 @@ export const MediaDisplay = () => {
   const startDelivery = () => {
     CreateDeliveryNotify("配信が開始されました");
   };
+  const deleteMediaData = (deleteIndex: number) => {
+    setMediaData(mediaDatas.filter((_, index) => index !== deleteIndex));
+  };
   return (
     <>
+      <p className="font-bold flex justify-center mb-3">おすすめのメディアリストはこちらです。</p>
       <table className="min-w-full bg-white border border-gray-200">
         <thead className="border-b">
           <tr>
@@ -30,7 +34,9 @@ export const MediaDisplay = () => {
               <td className="py-2 px-4 border-b">{media.department}</td>
               <td className="py-2 px-4 border-b">{media.means}</td>
               <td className="py-2 px-4 border-b">
-                <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">削除</button>
+                <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700" onClick={() => deleteMediaData(index)}>
+                  削除
+                </button>
               </td>
             </tr>
           ))}
