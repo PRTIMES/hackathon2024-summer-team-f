@@ -42,8 +42,8 @@ export const MediaDisplay = () => {
           ))}
         </tbody>
       </table>
-      <div className="flex items-center justify-end mr-12 mt-3">
-        <button className="px-5 py-2.5 bg-blue-500 text-white rounded-3xl text-center mb-5 no-underline hover:bg-blue-700" onClick={startDelivery}>
+      <div className="flex items-center justify-center mt-6">
+        <button className="px-7 py-3.5 bg-blue-500 text-white rounded-3xl text-center mb-5 no-underline hover:bg-blue-700" onClick={startDelivery}>
           配信
         </button>
       </div>

@@ -22,19 +22,21 @@ export default function New() {
   const [mediaFlag, setMediaFlag] = useState(false);
   const handleMediaData = async () => {
     setMediaFlag(true);
+
     //TODO
-    // const requestData = {
-    //   title,
-    //   content,
-    //   purpose,
-    //   category,
-    //   releaseKind,
-    // };
-    // const res = await getMediaData(requestData);
-    // console.log(res);
+    const requestData = {
+      title,
+      content,
+      purpose,
+      category,
+      releaseKind,
+    };
+    const res = await getMediaData(requestData);
+    console.log(res);
   };
   return (
     <>
+      <p className="font-bold flex justify-center mt-5 text-[30px]">プレスリリース作成</p>
       <form className="new-form flex flex-col items-center p-8 gap-6 w-full max-w-lg mx-auto">
         <div className="w-full">
           <Input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="リリースタイトルを入力" size="lg" className="w-full mb-2" />
@@ -69,7 +71,7 @@ export default function New() {
           ))}
         </Select>
 
-        <Button className="btn btn-large mt-4" color="primary" onClick={handleMediaData}>
+        <Button className="btn-large mt-4 hover:bg-blue-700" color="primary" onClick={handleMediaData}>
           作成
         </Button>
       </form>
