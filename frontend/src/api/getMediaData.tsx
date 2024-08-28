@@ -10,4 +10,5 @@ export const getMediaData = async (post: MediaRequest) => {
   });
 
   const data: MediaResponseArray = await res.json();
+  return data;
 };

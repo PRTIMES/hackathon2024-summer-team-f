@@ -3,7 +3,7 @@ export type MediaRequest = {
   content: string;
   purpose: string;
   category: string;
-  release_kind: string;
+  releaseKind: string;
 };
 
 export type MediaResponse = {
