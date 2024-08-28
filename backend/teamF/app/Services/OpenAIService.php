@@ -17,8 +17,9 @@ class OpenAIService
     }
 
     /**
-     * @param array 
-     * @return array The generated explanation
+     * @param string $media_list
+     * @param string $press_release_info
+     * @return array 
      */
     public function generateRecomendedMediaList($media_list, $press_release_info)
     {
@@ -30,11 +31,11 @@ class OpenAIService
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => "あなたはPRとメディアリーチの専門家です。プレスリリースの内容、カテゴリ、目的、種類に基づいて、適切なメディアリストを候補から選んでください $media_list"
+                    'content' => "あなたはPRとメディアリーチの専門家です。プレスリリースの内容、カテゴリ、目的、種類に基づいて、適切なメディアリストを候補から選んでください。$media_list"
                 ],
                 [
                     'role' => 'user',
-                    'content' => ""
+                    'content' => "プレスリリース情報: $press_release_info\n\nメディアリスト: $media_list"
                 ]
             ],
         ]);
