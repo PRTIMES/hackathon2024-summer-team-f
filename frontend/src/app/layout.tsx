@@ -20,8 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextUIProvider>{children}</NextUIProvider>
-        {children} <ToastContainer />
+        <NextUIProvider>
+          {children} <ToastContainer />
+        </NextUIProvider>
       </body>
     </html>
   );
