@@ -20,7 +20,9 @@ export default function New() {
   const [purpose, setPurpose] = useState("");
   const [releaseKind, setReleaseKind] = useState("");
   const [mediaFlag, setMediaFlag] = useState(false);
-  const handleMediaData = async () => {
+
+  const handleMediaData = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setMediaFlag(true);
 
     //TODO
@@ -31,23 +33,54 @@ export default function New() {
       category,
       releaseKind,
     };
-    const res = await getMediaData(requestData);
-    console.log(res);
+    console.log(requestData);
+
+    try {
+      const res = await getMediaData(requestData);
+      console.log(res);
+    } catch (error) {
+      console.error("fail:", error);
+    } finally {
+      setMediaFlag(false);
+    }
   };
+
   return (
     <>
-      <p className="font-bold flex justify-center mt-5 text-[30px]">プレスリリース作成</p>
-      <form className="new-form flex flex-col items-center p-8 gap-6 w-full max-w-lg mx-auto">
+      <p className="font-bold flex justify-center mt-5 text-[30px]">
+        プレスリリース作成
+      </p>
+      <form
+        className="new-form flex flex-col items-center p-8 gap-6 w-full max-w-lg mx-auto"
+        onSubmit={handleMediaData}
+      >
         <div className="w-full">
-          <Input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="リリースタイトルを入力" size="lg" className="w-full mb-2" />
+          <Input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="リリースタイトルを入力"
+            size="lg"
+            className="w-full mb-2"
+          />
           <span className="text-gray-500 text-sm">{title.length} / 100</span>
         </div>
         <div className="w-full">
-          <Textarea value={content} onChange={(e) => setContent(e.target.value)} placeholder="本文を入力" className="w-full mb-2" />
+          <Textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="本文を入力"
+            className="w-full mb-2"
+          />
           <span className="text-gray-500 text-sm">{content.length} / 8000</span>
         </div>
 
-        <Select label="目的を選択" className="w-full max-w-xs mb-2" value={purpose} onChange={(e) => setPurpose(e.target.value)}>
+        <Select
+          label="目的を選択"
+          className="w-full max-w-xs mb-2"
+          value={purpose}
+          onChange={(e) => setPurpose(e.target.value)}
+        >
           {purposes.map((pur) => (
             <SelectItem key={pur.name} value={pur.name}>
               {pur.name}
@@ -55,7 +88,12 @@ export default function New() {
           ))}
         </Select>
 
-        <Select label="種類を選択" className="w-full max-w-xs mb-2" value={releaseKind} onChange={(e) => setReleaseKind(e.target.value)}>
+        <Select
+          label="種類を選択"
+          className="w-full max-w-xs mb-2"
+          value={releaseKind}
+          onChange={(e) => setReleaseKind(e.target.value)}
+        >
           {releaseKinds.map((kind) => (
             <SelectItem key={kind.name} value={kind.name}>
               {kind.name}
@@ -63,7 +101,12 @@ export default function New() {
           ))}
         </Select>
 
-        <Select label="カテゴリを選択" className="w-full max-w-xs mb-2" value={category} onChange={(e) => setCategory(e.target.value)}>
+        <Select
+          label="カテゴリを選択"
+          className="w-full max-w-xs mb-2"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           {categores.map((cat) => (
             <SelectItem key={cat.name} value={cat.name}>
               {cat.name}
@@ -71,7 +114,12 @@ export default function New() {
           ))}
         </Select>
 
-        <Button className="btn-large mt-4 hover:bg-blue-700" color="primary" onClick={handleMediaData}>
+        <Button
+          className="btn-large mt-4 hover:bg-blue-700"
+          color="primary"
+          disabled={mediaFlag}
+          type="submit"
+        >
           作成
         </Button>
       </form>
