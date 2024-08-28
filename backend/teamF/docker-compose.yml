@@ -28,19 +28,20 @@ services:
             - mailpit
             - selenium
     mysql:
-        image: 'mysql/mysql-server:8.0'
+        image: 'mysql/mysql-server:latest'
+        platform: linux/amd64
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ROOT_HOST: '%'
+            # MYSQL_ROOT_HOST: '%'
             MYSQL_DATABASE: '${DB_DATABASE}'
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
-        volumes:
-            - 'sail-mysql:/var/lib/mysql'
-            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+        # volumes:
+            # - 'sail-mysql:/var/lib/mysql'
+            # - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
         healthcheck:
@@ -94,6 +95,7 @@ services:
             - sail
     selenium:
         image: selenium/standalone-chrome
+        platform: linux/amd64
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         volumes:
@@ -102,6 +104,7 @@ services:
             - sail
     phpmyadmin:
             image: phpmyadmin/phpmyadmin
+            platform: linux/amd64
             links:
                 - mysql:mysql
             ports:
