@@ -27,7 +27,7 @@ class OpenAIService
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->openai_api_key,
         ])->post('https://api.openai.com/v1/chat/completions', [
-            'model' => 'gpt-3.5-turbo',
+            'model' => 'gpt-4o-mini',
             'messages' => [
                 [
                     'role' => 'system',
