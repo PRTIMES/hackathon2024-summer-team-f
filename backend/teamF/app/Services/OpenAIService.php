@@ -17,13 +17,17 @@ class OpenAIService
     }
 
     /**
-     * @param string $media_list
-     * @param string $press_release_info
+     * @param array $media_list
+     * @param string $press_release_title
+     * @param string $press_release_content
+     * @param string $press_release_category
+     * @param string $press_release_purpose
+     * @param string $press_release_kind
      * @return array 
      */
-    public function generateRecomendedMediaList($media_list, $press_release_info)
+    public function generateRecomendedMediaList(array $media_list, string $press_release_title, string $press_release_content, string $press_release_category, string $press_release_purpose, string $press_release_kind): array
     {
-        // Make a POST request to the OpenAI API to generate the explanation
+        $media_list_json = json_encode($media_list);
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $this->openai_api_key,
         ])->post('https://api.openai.com/v1/chat/completions', [
@@ -31,18 +35,19 @@ class OpenAIService
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => "あなたはPRとメディアリーチの専門家です。プレスリリースの内容、カテゴリ、目的、種類に基づいて、適切なメディアリストを候補から選んでください。$media_list"
+                    'content' => "あなたはPRとメディアリーチの専門家です。プレスリリースのtitle、内容、カテゴリ、目的、種類に基づいて、適切なメディアリストを以下の候補から選び、出力フォーマットに従って出力してください。```$media_list_json```\n\n出力フォーマット: \n [{\"media_kind\":1,\"name\":\"Andy\",\"explanation\":\"Andy\",\"company\":\"Andy\",\"department\":\"Andy\",\"means\":\"Andy\"},{\"media_kind\":2,\"name\":\"Andy\",\"explanation\":\"Andy\",\"company\":\"Andy\",\"department\":\"Andy\",\"means\":\"Andy\"}, ... ]"
                 ],
                 [
                     'role' => 'user',
-                    'content' => "プレスリリース情報: $press_release_info\n\nメディアリスト: $media_list"
+                    'content' => "title: $press_release_title\n\n内容: $press_release_content\n\nカテゴリ: $press_release_category\n\n目的: $press_release_purpose\n\n種類: $press_release_kind"
                 ]
             ],
         ]);
     
         // Decode the JSON response from the API
         $data = $response->json();
-
-        return $data['choices'][0]['message']['content'] ?? '';
+        $recomended_media_list = json_decode($data['choices'][0]['message']['content'], true) ?? [];
+        
+        return $recomended_media_list;
     }
 }
