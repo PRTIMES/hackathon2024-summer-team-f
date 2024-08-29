@@ -1,11 +1,19 @@
 "use client";
-import { useState } from "react";
+import { EventHandler, useState } from "react";
 import { Button } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
 import { getMediaData } from "@/api/getMediaData";
 import { MediaDisplay } from "@/components/MediaDisplay";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
 
 const categores = [{ name: "パソコン" }, { name: "ネットサービス" }];
 
@@ -20,9 +28,21 @@ export default function New() {
   const [purpose, setPurpose] = useState("");
   const [releaseKind, setReleaseKind] = useState("");
   const [mediaFlag, setMediaFlag] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const handleMediaData = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
+  };
+
+  const handlePurposeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setPurpose(e.target.value);
+  };
+
+  const handleReleaseKingChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setReleaseKind(e.target.value);
+  };
+
+  const handleMediaData = async () => {
     setMediaFlag(true);
 
     //TODO
@@ -42,6 +62,11 @@ export default function New() {
       console.error("fail:", error);
     } finally {
       setMediaFlag(false);
+      setTitle("");
+      setContent("");
+      setCategory("");
+      setPurpose("");
+      setReleaseKind("");
     }
   };
 
@@ -50,10 +75,7 @@ export default function New() {
       <p className="font-bold flex justify-center mt-5 text-[30px]">
         プレスリリース作成
       </p>
-      <form
-        className="new-form flex flex-col items-center p-8 gap-6 w-full max-w-lg mx-auto"
-        onSubmit={handleMediaData}
-      >
+      <form className="new-form flex flex-col items-center p-8 gap-6 w-full max-w-lg mx-auto">
         <div className="w-full">
           <Input
             type="text"
@@ -78,8 +100,8 @@ export default function New() {
         <Select
           label="目的を選択"
           className="w-full max-w-xs mb-2"
-          value={purpose}
-          onChange={(e) => setPurpose(e.target.value)}
+          selectedKeys={[purpose]}
+          onChange={handlePurposeChange}
         >
           {purposes.map((pur) => (
             <SelectItem key={pur.name} value={pur.name}>
@@ -92,7 +114,8 @@ export default function New() {
           label="種類を選択"
           className="w-full max-w-xs mb-2"
           value={releaseKind}
-          onChange={(e) => setReleaseKind(e.target.value)}
+          selectedKeys={[releaseKind]}
+          onChange={handleReleaseKingChange}
         >
           {releaseKinds.map((kind) => (
             <SelectItem key={kind.name} value={kind.name}>
@@ -104,8 +127,8 @@ export default function New() {
         <Select
           label="カテゴリを選択"
           className="w-full max-w-xs mb-2"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          selectedKeys={[category]}
+          onChange={handleCategoryChange}
         >
           {categores.map((cat) => (
             <SelectItem key={cat.name} value={cat.name}>
@@ -117,11 +140,38 @@ export default function New() {
         <Button
           className="btn-large mt-4 hover:bg-blue-700"
           color="primary"
-          disabled={mediaFlag}
-          type="submit"
+          onPress={onOpen}
         >
           作成
         </Button>
+        <Modal
+          backdrop="opaque"
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          classNames={{
+            backdrop:
+              "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+          }}
+        >
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">確認</ModalHeader>
+                <ModalBody>
+                  <p>実行してもいいですか❓</p>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    キャンセル
+                  </Button>
+                  <Button color="primary" onPress={handleMediaData}>
+                    実行
+                  </Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </form>
       {mediaFlag ? <MediaDisplay /> : ""}
     </>
