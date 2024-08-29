@@ -27,7 +27,7 @@ export default function New() {
   const handleMediaData = async () => {
     setLoading(true);
     setMediaFlag(false);
-    //TODO
+
     const requestData = {
       title,
       content,
@@ -35,7 +35,6 @@ export default function New() {
       category,
       releaseKind,
     };
-    console.log(requestData);
 
     try {
       const res = await getMediaData(requestData);
@@ -43,10 +42,8 @@ export default function New() {
     } catch (error) {
       console.error("fail:", error);
     } finally {
-      setTimeout(() => {
-        setMediaFlag(true);
-        setLoading(false);
-      }, 1000);
+      setMediaFlag(true);
+      setLoading(false);
     }
   };
 

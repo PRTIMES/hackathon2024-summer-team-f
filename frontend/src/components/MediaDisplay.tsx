@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { mediaData } from "../state/mediaData";
 import { CreateDeliveryNotify } from "./CreateDeliveryNotify";
 import { MediaResponseArray } from "@/types/media";
 
