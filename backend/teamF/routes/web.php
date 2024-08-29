@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/create', [MediaListRecommendController::class, 'createMediaList'])->name('openai.createMediaList');
+Route::get('/api/createMediaList', [MediaListRecommendController::class, 'createMediaList'])->name('openai.createMediaList');
