@@ -35,15 +35,12 @@ class MediaListRecommendController extends Controller
             ];
         }, $media_list_all);
 
-        // $press_release_info = $request->input('press_release_info');   press_releaseの情報をリクエストから取得
-
-        $press_release_title = 'New AI-Powered Product Launch';
-        $press_release_content = 'We are thrilled to introduce our latest AI-powered product that revolutionizes data analytics by providing real-time insights and predictive analytics.';
-        $press_release_category = 'Technology';
-        $press_release_purpose = 'To announce the launch of our innovative AI product and attract media coverage from leading technology outlets.';
-        $press_release_kind = 'Product Announcement';
-
-        
+        $mediaRequestData = $request->input('post');
+        $press_release_title = $mediaRequestData['title'] ?? '';
+        $press_release_content = $mediaRequestData['content'] ?? '';
+        $press_release_category = $mediaRequestData['category'] ?? '';
+        $press_release_purpose = $mediaRequestData['purpose'] ?? '';
+        $press_release_kind = $mediaRequestData['releaseKind'] ?? '';
 
 
         $recommended_media_list = $this->openAIService->generateRecomendedMediaList($media_list, $press_release_title, $press_release_content, $press_release_category, $press_release_purpose, $press_release_kind);
