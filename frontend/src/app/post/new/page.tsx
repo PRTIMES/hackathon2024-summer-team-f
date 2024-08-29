@@ -23,7 +23,7 @@ export default function New() {
   const [mediaFlag, setMediaFlag] = useState(false);
   const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  const [response, setResponse] = useState();
   const handleMediaData = async () => {
     setLoading(true);
     setMediaFlag(false);
@@ -39,14 +39,14 @@ export default function New() {
 
     try {
       const res = await getMediaData(requestData);
-      console.log(res);
+      setResponse(res.data);
     } catch (error) {
       console.error("fail:", error);
     } finally {
       setTimeout(() => {
         setMediaFlag(true);
         setLoading(false);
-      }, 2000);
+      }, 1000);
     }
   };
 
@@ -104,7 +104,7 @@ export default function New() {
             <>
               <ModalHeader className="flex flex-col gap-1">確認</ModalHeader>
               <ModalBody>
-                <p>実行してもいいですか❓</p>
+                <p>実行してもいいですか?</p>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
@@ -125,7 +125,7 @@ export default function New() {
         </ModalContent>
       </Modal>
       {loading && <MediaLoading />}
-      {mediaFlag && <MediaDisplay />}
+      {mediaFlag && response && <MediaDisplay data={response} />}
     </>
   );
 }

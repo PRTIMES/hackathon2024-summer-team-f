@@ -7,13 +7,11 @@ export type MediaRequest = {
 };
 
 export type MediaResponse = {
-  id: number;
   media_kind: string;
-  name: string;
-  explanation: string;
+  media_name: string;
+  media_overview: string;
   company: string;
-  department: string;
-  means: string;
+  size_published: string;
 };
 
 export type MediaResponseArray = MediaResponse[];
