@@ -35,7 +35,7 @@ class OpenAIService
             'messages' => [
                 [
                     'role' => 'system',
-                    'content' => "あなたはPRとメディアリーチの専門家です。プレスリリースのtitle、内容、カテゴリ、目的、種類に基づいて、適切なメディアリストを以下の候補から選び、出力フォーマットに従って出力してください。```$media_list_json```\n\n出力フォーマット: \n [{\"media_kind\":1,\"name\":\"Andy\",\"explanation\":\"Andy\",\"company\":\"Andy\",\"department\":\"Andy\",\"means\":\"Andy\"},{\"media_kind\":2,\"name\":\"Andy\",\"explanation\":\"Andy\",\"company\":\"Andy\",\"department\":\"Andy\",\"means\":\"Andy\"}, ... ]"
+                    'content' => "あなたはPRとメディアリーチの専門家です。プレスリリースのtitle、内容、カテゴリ、目的、種類に基づいて、適切なメディアリストを以下の候補から選び、出力フォーマットに従って出力してください。```$media_list_json```\n\n出力フォーマット: \n [{\"media_kind\":\"paper\",\"media_name\":\"Andy\",\"media_overview\":\"Andy\",\"size_published\":\"Andy\"},{\"media_kind\":\"tv\",\"media_name\":\"Andy\",\"media_overview\":\"Andy\",\"size_published\":\"Andy\"}, ... ]"
                 ],
                 [
                     'role' => 'user',
