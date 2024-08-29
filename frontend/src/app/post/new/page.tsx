@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
 import { Input } from "@nextui-org/input";
 import { Textarea } from "@nextui-org/input";
 import { getMediaData } from "@/api/getMediaData";
 import { MediaDisplay } from "@/components/MediaDisplay";
+import { MediaLoading } from "@/components/MediaLoading";
 
 const categores = [{ name: "パソコン" }, { name: "ネットサービス" }];
 
@@ -20,10 +21,12 @@ export default function New() {
   const [purpose, setPurpose] = useState("");
   const [releaseKind, setReleaseKind] = useState("");
   const [mediaFlag, setMediaFlag] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleMediaData = async () => {
-    setMediaFlag(true);
-
+    setLoading(true);
+    setMediaFlag(false);
     //TODO
     const requestData = {
       title,
@@ -34,14 +37,17 @@ export default function New() {
     };
     console.log(requestData);
 
-    // try {
-    //   const res = await getMediaData(requestData);
-    //   console.log(res);
-    // } catch (error) {
-    //   console.error("fail:", error);
-    // } finally {
-    //   setMediaFlag(false);
-    // }
+    try {
+      const res = await getMediaData(requestData);
+      console.log(res);
+    } catch (error) {
+      console.error("fail:", error);
+    } finally {
+      setTimeout(() => {
+        setMediaFlag(true);
+        setLoading(false);
+      }, 2000);
+    }
   };
 
   return (
@@ -81,11 +87,45 @@ export default function New() {
           ))}
         </Select>
 
-        <div className="px-7 py-3.5 bg-blue-500 text-white rounded-3xl text-center mb-5 no-underline hover:bg-blue-700" color="primary" onClick={handleMediaData}>
+        <Button className="px-7 py-3.5 bg-blue-500 text-white rounded-3xl text-center mb-5 no-underline hover:bg-blue-700" color="primary" onPress={onOpen} isDisabled={!title || !content || !category || !purpose || !releaseKind}>
           作成
-        </div>
+        </Button>
       </form>
-      {mediaFlag ? <MediaDisplay /> : ""}
+      <Modal
+        backdrop="opaque"
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        classNames={{
+          backdrop: "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">確認</ModalHeader>
+              <ModalBody>
+                <p>実行してもいいですか❓</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  キャンセル
+                </Button>
+                <Button
+                  color="primary"
+                  onPress={async () => {
+                    await handleMediaData();
+                    onClose();
+                  }}
+                >
+                  実行
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      {loading && <MediaLoading />}
+      {mediaFlag && <MediaDisplay />}
     </>
   );
 }
