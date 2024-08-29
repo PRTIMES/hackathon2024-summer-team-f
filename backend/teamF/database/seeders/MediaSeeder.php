@@ -17,28 +17,28 @@ class MediaSeeder extends Seeder
             'media_kind' => 'ＴＶ番組',
             'media_name' => '全国朝日放送（テレビ朝日',
             'media_overview' => 'edited-関東広域圏を放送対象地域とする特定地上基幹放送事業',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => 'ＴＶ番組',
             'media_name' => 'テレビ東京',
             'media_overview' => '関東広域圏を放送対象地域とする放送局1',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => 'ＴＶ番組',
             'media_name' => 'フジテレビジョン',
             'media_overview' => 'edited-関東広域圏を放送対象地域とする特定地上基幹放送事業者',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => 'ＴＶ番組',
             'media_name' => 'BS-TBS',
             'media_overview' => 'TBS系列BSデジタル放送局',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
@@ -96,7 +96,7 @@ class MediaSeeder extends Seeder
             'media_kind' => 'インターネットサイト',
             'media_name' => '読売新聞オンライン',
             'media_overview' => '読売新聞のニュースサイト',
-            'size_published' => 51000,
+            'size_published' => 100,
            ]);
 
            MediaList::create([
@@ -124,42 +124,42 @@ class MediaSeeder extends Seeder
             'media_kind' => 'ラジオ番組',
             'media_name' => 'ラジオNIKKEI（ラジオニッケイ）',
             'media_overview' => '日本国内全域を放送対象地域とする短波ラジオ放送局',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => 'ラジオ番組',
             'media_name' => 'エフエム東京（TOKYO FM）',
             'media_overview' => '東京都を放送対象地域とする民間放送の放送局',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => 'ラジオ番組',
             'media_name' => 'InterFM（インターFM）',
             'media_overview' => '関東広域圏の内、外国語放送実施地域（東京都区部・さいたま市・千葉市・横浜市・川崎市・成田国際空港）が放送対象地域の、外国語FM放送局',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => '通信社',
             'media_name' => '共同通信',
             'media_overview' => '国内外の政治・経済・スポーツ・文化など、多岐にわたる予定を1日単位で収載した新聞',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => '通信社',
             'media_name' => '共同通信',
             'media_overview' => '速報の他、ジャンル別の報道を時系列にそって掲載する通信社',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
            MediaList::create([
             'media_kind' => '通信社',
             'media_name' => 'ロイター通信',
             'media_overview' => '世界中のメディア、金融機関、そして個人投資家に、ニュースや金融情報・テクノロジーを提供する世界最大の国際通信社',
-            'size_published' => 0,
+            'size_published' => null,
            ]);
 
     }
