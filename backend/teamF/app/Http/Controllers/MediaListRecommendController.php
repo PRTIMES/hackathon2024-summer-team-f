@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\OpenAIService;
 use Illuminate\Http\Request;
 
-class OpenAIController extends Controller
+class MediaListRecommendController extends Controller
 {
     protected $openAIService;
     
@@ -23,6 +23,9 @@ class OpenAIController extends Controller
      */
     public function createMediaList(Request $request)
     {
+        // $mediaList = MediaList::fetchAll();     　　　　　　　　　　　　   ここでdbからメディアリストを取得する
+        // $press_release_info = $request->input('press_release_info');   press_releaseの情報をリクエストから取得
+
         var_dump($this->openAIService->generateRecomendedMediaList('media_list', 'press_release_info'));
         // return response()->json([
         //     'message' => 'success',
