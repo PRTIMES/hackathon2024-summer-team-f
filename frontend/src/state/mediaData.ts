@@ -2,21 +2,17 @@ import { MediaResponseArray } from "@/types/media";
 
 export const mediaData: MediaResponseArray = [
   {
-    id: 1,
     media_kind: "testA",
-    name: "nameA",
-    explanation: "explanationA",
+    media_name: "nameA",
     company: "companyA",
-    department: "departmentA",
-    means: "meansA",
+    size_published: "sizeA",
+    media_overview: "overviewA",
   },
   {
-    id: 2,
     media_kind: "testB",
-    name: "nameB",
-    explanation: "explanationB",
+    media_name: "nameB",
     company: "companyB",
-    department: "departmentB",
-    means: "meansB",
+    size_published: "sizeB",
+    media_overview: "overviewB",
   },
 ];
