@@ -37,12 +37,12 @@ class MediaListRecommendController extends Controller
             ];
         }, $media_list_all);
 
-        $mediaRequestData = $request->input('post');
-        $press_release_title = $mediaRequestData['title'] ?? '';
-        $press_release_content = $mediaRequestData['content'] ?? '';
-        $press_release_category = $mediaRequestData['category'] ?? '';
-        $press_release_purpose = $mediaRequestData['purpose'] ?? '';
-        $press_release_kind = $mediaRequestData['releaseKind'] ?? '';
+        $media_request_data = $request->input('post');
+        $press_release_title = $media_request_data['title'] ?? '';
+        $press_release_content = $media_request_data['content'] ?? '';
+        $press_release_category = $media_request_data['category'] ?? '';
+        $press_release_purpose = $media_request_data['purpose'] ?? '';
+        $press_release_kind = $media_request_data['releaseKind'] ?? '';
 
 
         $recommended_media_list = $this->openAIService->generateRecomendedMediaList($media_list, $press_release_title, $press_release_content, $press_release_category, $press_release_purpose, $press_release_kind);
