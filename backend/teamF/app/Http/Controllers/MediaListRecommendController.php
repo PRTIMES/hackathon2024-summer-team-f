@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\OpenAIService;
 use Illuminate\Http\Request;
 use App\Models\MediaList;
+use Illuminate\Http\JsonResponse;
 
 class MediaListRecommendController extends Controller
 {
@@ -21,8 +22,9 @@ class MediaListRecommendController extends Controller
 
     /**
      * @param Request $request
+     * @return JsonResponse
      */
-    public function createMediaList(Request $request)
+    public function createMediaList(Request $request): JsonResponse
     {
         $media_list_all = MediaList::all()->toArray();
         
