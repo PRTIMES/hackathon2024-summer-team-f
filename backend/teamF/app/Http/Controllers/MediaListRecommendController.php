@@ -26,16 +26,7 @@ class MediaListRecommendController extends Controller
      */
     public function createMediaList(Request $request): JsonResponse
     {
-        $media_list_all = MediaList::all()->toArray();
-        
-        $media_list = array_map(function($media) {
-            return [
-                'media_kind' => $media['media_kind'],
-                'media_name' => $media['media_name'],
-                'media_overview' => $media['media_overview'],
-                'size_published' => $media['size_published'],
-            ];
-        }, $media_list_all);
+        $media_list = MediaList::select('media_kind', 'media_name', 'media_overview', 'size_published')->get()->toArray();
 
         $media_request_data = $request->input('post');
         $press_release_title = $media_request_data['title'] ?? '';
@@ -43,7 +34,6 @@ class MediaListRecommendController extends Controller
         $press_release_category = $media_request_data['category'] ?? '';
         $press_release_purpose = $media_request_data['purpose'] ?? '';
         $press_release_kind = $media_request_data['releaseKind'] ?? '';
-
 
         $recommended_media_list = $this->openAIService->generateRecomendedMediaList($media_list, $press_release_title, $press_release_content, $press_release_category, $press_release_purpose, $press_release_kind);
         return response()->json([
