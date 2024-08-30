@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class OpenAIService
 {
-    protected $openai_api_key;
+    protected string $openai_api_key;
 
     /**
      * Initialize the OpenAIService with the API key from environment variables.
